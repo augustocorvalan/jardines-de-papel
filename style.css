@@ -9,3 +9,10 @@ h1 {
   font-style: italic;
   color: #373fff;
 }
+
+.phraseContainer { 
+	display: flex;
+    justify-content: space-evenly;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}

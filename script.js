@@ -88,19 +88,41 @@ function buildTraceryGrammar() {
 }
 
 const createTextEl = text => {
-  var p = document.createElement('p');
-  p.innerHTML = text;
-  return p
+    const textPieces = text.split(" ")
+    var $div = document.createElement('div');
+    $div.className = "phraseContainer"
+
+    textPieces.forEach(piece => {
+        var $text = document.createElement('span');
+        $text.className = "phrasePiece"
+        $text.innerHTML = piece;
+        $div.appendChild($text)
+    })
+
+    return $div
 }
 
-const INTERVAL_LIMIT = 20;
-const INTERVAL_TIMING = 1000;
+const INITIAL_PHRASE = "Un jardín de Plástico"
+const INTERVAL_LIMIT = 15;
+const INTERVAL_TIMING = 250;
+const MIN_PHRASE_REPEAT = 4;
+const MAX_PHRASE_REPEAT = 7;
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const getRepeatedPhrase = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
+    const randomLength = getRandomInt(min, max) 
+    return Array(randomLength).fill(text)
+} 
 window.addEventListener("load", () => {
-  var _Container = document.getElementById("container");
-  var _Grammar = tracery.createGrammar(buildTraceryGrammar());
-  var _Counter = 0;
-  var _CurrentPhrase = getGrammarResult()
-  var _SwitchPhraseIndex = 5;
+    const _Container = document.getElementById("container");
+    const _Grammar = tracery.createGrammar(buildTraceryGrammar());
+
+    var _Counter = 0;
+    var _State = getNewState(INITIAL_PHRASE)
 
   function getGrammarResult() {
     return _Grammar.flatten("#origin#");
@@ -109,16 +131,31 @@ window.addEventListener("load", () => {
     const $p = createTextEl(text)
     _Container.appendChild($p);
   }
+  function getNewState(newPhrase) {
+    let newState = []
+    if (!newPhrase) {
+        newPhrase = getGrammarResult()
+    }
+    const repeatedPhrase = getRepeatedPhrase(newPhrase)
+    newState = newState.concat(repeatedPhrase)
+    return newState
+  }
 
   var intervalId = setInterval(function(){
+    var currentPhrase;
      if(_Counter === INTERVAL_LIMIT){
         clearInterval(intervalId);
-     }
-     if (_Counter % _SwitchPhraseIndex === 0) {
-        _CurrentPhrase = getGrammarResult()
+        return
      }
 
-     displayText(_CurrentPhrase)
+    if (!_State.length) {
+       _State = getNewState()
+    }  
+    currentPhrase = _State.pop()
+
+     if (currentPhrase) {
+         displayText(currentPhrase)
+     }
 
      _Counter++;
   }, INTERVAL_TIMING);
