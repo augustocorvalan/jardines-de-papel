@@ -102,11 +102,13 @@ const createTextEl = text => {
     return $div
 }
 
+/* BOOK SETTINGS */
 const INITIAL_PHRASE = "Un jardín de Plástico"
-const INTERVAL_LIMIT = 15;
-const INTERVAL_TIMING = 250;
-const MIN_PHRASE_REPEAT = 4;
-const MAX_PHRASE_REPEAT = 7;
+const INTERVAL_LIMIT = 35;
+const INTERVAL_TIMING = 500;
+const MIN_PHRASE_REPEAT = 6;
+const MAX_PHRASE_REPEAT = 9;
+const REVERSE = true
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -129,7 +131,11 @@ window.addEventListener("load", () => {
   }
   function displayText(text) {
     const $p = createTextEl(text)
-    _Container.appendChild($p);
+    if (REVERSE) {
+        _Container.prepend($p);
+    } else {
+        _Container.appendChild($p);
+    }
   }
   function getNewState(newPhrase) {
     let newState = []
