@@ -12,6 +12,9 @@ h1 {
   color: #373fff;
 }
 
+.intro {
+	margin-bottom: 15rem;
+}
 .intro .phraseContainer {
 	color: #F69577;
 }

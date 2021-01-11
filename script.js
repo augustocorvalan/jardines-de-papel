@@ -88,11 +88,11 @@ const createTextEl = text => {
 
 /* BOOK SETTINGS */
 const INITIAL_PHRASE = "Un jardín de Plástico"
-const INTERVAL_LIMIT = 105;
-const INTERVAL_TIMING = 500;
-const MIN_PHRASE_REPEAT = 9;
-const MAX_PHRASE_REPEAT = 15;
-const REVERSE = true
+const INTERVAL_LIMIT = 500;
+const INTERVAL_TIMING = 150;
+const MIN_PHRASE_REPEAT = 15;
+const MAX_PHRASE_REPEAT = 25;
+const REVERSE = false 
 const BLANK_CHARS = [
     " . ",
     ".",
@@ -162,12 +162,16 @@ window.addEventListener("load", () => {
     }
     const repeatedPhrase = getRepeatedText(newPhrase)
     const distortedPhrase = repeatedPhrase.map(piece => blankOutPhrase(piece))
+    const gardenPhrases = getRepeatedText(pickArray(BLANK_CHARS))
+    .map(piece => blankOutPhrase(piece))
+    .join(" ")
 
+    // garden text
+    newState = newState.concat(getRepeatedText(gardenPhrases))
     // distorted phrase text
     newState = newState.concat(distortedPhrase)
     // normal text
     newState = newState.concat(repeatedPhrase)
-    // garden text
     return newState
   }
 
