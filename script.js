@@ -87,33 +87,39 @@ function buildTraceryGrammar() {
   return story;
 }
 
+const createTextEl = text => {
+  var p = document.createElement('p');
+  p.innerHTML = text;
+  return p
+}
 
+const INTERVAL_LIMIT = 20;
+const INTERVAL_TIMING = 1000;
 window.addEventListener("load", () => {
-  
-  
+  var _Container = document.getElementById("container");
+  var _Grammar = tracery.createGrammar(buildTraceryGrammar());
+  var _Counter = 0;
+  var _CurrentPhrase = getGrammarResult()
+  var _SwitchPhraseIndex = 5;
 
-  function getRolls(n = 40) {
-    var grammar = tracery.createGrammar(buildTraceryGrammar());
-    var rolls = [];
-    for (var i=0; i<n;i++) {
-      var result = grammar.flatten("#origin#");
-      rolls.push(result);
-    }
-    var uniqRolls = [...new Set(rolls)];
-    return uniqRolls;
+  function getGrammarResult() {
+    return _Grammar.flatten("#origin#");
   }
-  function displayRolls() {
-    var result = document.getElementById("container");
-    var rolls = getRolls();
-    rolls.forEach(roll => {
-      var p = document.createElement('p');
-      p.innerHTML = roll;
-      result.appendChild(p);
-    });
+  function displayText(text) {
+    const $p = createTextEl(text)
+    _Container.appendChild($p);
   }
 
-  displayRolls(); //this outputs the first story
-  document.getElementById("reroll").addEventListener("click", function() {
-    displayRolls()
-  });
+  var intervalId = setInterval(function(){
+     if(_Counter === INTERVAL_LIMIT){
+        clearInterval(intervalId);
+     }
+     if (_Counter % _SwitchPhraseIndex === 0) {
+        _CurrentPhrase = getGrammarResult()
+     }
+
+     displayText(_CurrentPhrase)
+
+     _Counter++;
+  }, INTERVAL_TIMING);
 });
