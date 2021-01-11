@@ -12,6 +12,9 @@ h1 {
   color: #373fff;
 }
 
+.intro .phraseContainer {
+	color: #F69577;
+}
 .phraseContainer { 
 	display: flex;
     justify-content: space-between;
