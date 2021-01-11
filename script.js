@@ -104,21 +104,33 @@ const createTextEl = text => {
 
 /* BOOK SETTINGS */
 const INITIAL_PHRASE = "Un jardín de Plástico"
-const INTERVAL_LIMIT = 35;
+const INTERVAL_LIMIT = 105;
 const INTERVAL_TIMING = 500;
-const MIN_PHRASE_REPEAT = 6;
-const MAX_PHRASE_REPEAT = 9;
+const MIN_PHRASE_REPEAT = 9;
+const MAX_PHRASE_REPEAT = 15;
 const REVERSE = true
 
-function getRandomInt(min, max) {
+function getRandomInt(min=0, max=2) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const getRepeatedPhrase = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
+const getRepeatedText = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
     const randomLength = getRandomInt(min, max) 
     return Array(randomLength).fill(text)
 } 
+const blankOutPhrase = (phrase, replacement) => {
+    return phrase.split(" ").map(piece => {
+        var newPiece = piece
+        if (getRandomInt()) {
+            newPiece = replaceTextWith(piece, replacement)
+        }
+        return newPiece
+    }).join(" ")
+}
+const replaceTextWith = (text, replacement=" . ") => {
+    return Array(text.length).fill(replacement).join("")
+}
 window.addEventListener("load", () => {
     const _Container = document.getElementById("container");
     const _Grammar = tracery.createGrammar(buildTraceryGrammar());
@@ -142,8 +154,14 @@ window.addEventListener("load", () => {
     if (!newPhrase) {
         newPhrase = getGrammarResult()
     }
-    const repeatedPhrase = getRepeatedPhrase(newPhrase)
+    const repeatedPhrase = getRepeatedText(newPhrase)
+    const distortedPhrase = repeatedPhrase.map(piece => blankOutPhrase(piece))
+
+    // distorted phrase text
+    newState = newState.concat(distortedPhrase)
+    // normal text
     newState = newState.concat(repeatedPhrase)
+    // garden text
     return newState
   }
 
