@@ -1,22 +1,6 @@
 /* globals tracery */
 
 
-
-function shuffleArray(array, rnFn) {
-    rnFn = rnFn || Math.random;
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(rnFn() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-function selectVars(vars, n) {
-    n = n || vars.length;
-    const newVars = vars.slice(0);
-    shuffleArray(newVars);
-    return newVars.slice(0,3);
-}
-
 function buildTraceryGrammar() {
   // const story = {
   //   origin: ["there is #var1# within #var2#"]
@@ -109,17 +93,39 @@ const INTERVAL_TIMING = 500;
 const MIN_PHRASE_REPEAT = 9;
 const MAX_PHRASE_REPEAT = 15;
 const REVERSE = true
+const BLANK_CHARS = [
+    " . ",
+    ".",
+    " ¨ ",
+    " ° ",
+    "◦",
+    "/",
+    "/ ",
+    " I ",
+    "¦",
+    "",
+    " ",
+    ":",
+    " Ï ",
+    "ï"
+]
 
 function getRandomInt(min=0, max=2) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+function pickArray(myArray) {
+    return myArray[Math.floor(Math.random()*myArray.length)]
+}
 const getRepeatedText = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
     const randomLength = getRandomInt(min, max) 
     return Array(randomLength).fill(text)
 } 
 const blankOutPhrase = (phrase, replacement) => {
+    if (!replacement) {
+        replacement = pickArray(BLANK_CHARS)
+    }
     return phrase.split(" ").map(piece => {
         var newPiece = piece
         if (getRandomInt()) {
