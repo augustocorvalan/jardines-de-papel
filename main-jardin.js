@@ -16,28 +16,28 @@ function buildTraceryGrammar() {
     ["un plan para", "un estudio de", "posible", "planes para"],
     "configuration": ["configuraciónes", "alternaciónes", "negaciónes"],
     "seed2": [
-    "#opener# #configuration# imaginarias de jardines de plastico",
-    "#configuration# imaginarias de jardines de plastico",
+    "#opener# #configuration# imaginarias de jardines de papel",
+    "#configuration# imaginarias de jardines de papel",
 
-    "#opener# #configuration# y #configuration# y #configuration# de la arquitectura de los jardines de plastico",
-    "#opener# #configuration# y #configuration# y #configuration# de la arquitectura de los jardines de plastico",
+    "#opener# #configuration# y #configuration# y #configuration# de la arquitectura de los jardines de papel",
+    "#opener# #configuration# y #configuration# y #configuration# de la arquitectura de los jardines de papel",
     ],
     "seed1": [
-    "#feelings# y laberintos en los jardines de plastico",
-    "#luck# y laberintos en los jardines de plastico",
-    "#luck# y #luck# y laberintos en los jardines de plastico",
+    "#feelings# y laberintos en los jardines de papel",
+    "#luck# y laberintos en los jardines de papel",
+    "#luck# y #luck# y laberintos en los jardines de papel",
 
-    "#feelings# y amor y solitud en los jardines de plastico",
-    "#luck# y amor y solitud en los jardines de plastico",
-    "amor y solitud en los jardines de plastico",
+    "#feelings# y amor y solitud en los jardines de papel",
+    "#luck# y amor y solitud en los jardines de papel",
+    "amor y solitud en los jardines de papel",
 
-    "solitud en los jardines de plastico",
-    "#luck# y solitud en los jardines de plastico",
+    "solitud en los jardines de papel",
+    "#luck# y solitud en los jardines de papel",
 
-    "amor en los jardines de plastico",
-    "#luck# y amor en los jardines de plastico",
+    "amor en los jardines de papel",
+    "#luck# y amor en los jardines de papel",
     ],
-    "seed3": ["perderse en los jardines de plastico", "estar perdido en los jardines de plastico", "tiempo en los jardines de plastico", "perdiendo tiempo en los jardines de plastico"],
+    "seed3": ["perderse en los jardines de papel", "estar perdido en los jardines de papel", "tiempo en los jardines de papel", "perdiendo tiempo en los jardines de papel"],
     "accionSimple": [
     "perderse",
     ],
@@ -56,18 +56,17 @@ function buildTraceryGrammar() {
 
     ],
     "generate": [
-    "Un #myPlace# de Plástico para #accion#",
-    "Un #myPlace# de Plástico para #accion# y #accionSimple#",
-    "Un #myPlace# de Plástico para #accionSimple# y #accionSimple#",
-    "Un #myPlace# de Plástico para #feelings#",
-    "Un #myPlace# de Plástico para #feelings# y #feelings#",
+    "Un #myPlace# de Papel para #accion#",
+    "Un #myPlace# de papel para #accion# y #accionSimple#",
+    "Un #myPlace# de papel para #accionSimple# y #accionSimple#",
+    "Un #myPlace# de papel para #feelings#",
+    "Un #myPlace# de papel para #feelings# y #feelings#",
     ],
     "origin": [
     "#[myPlace:jardín]generate#",
     "#[myPlace:laberinto]generate#",
     ]
   }
-  
   return story;
 }
 
@@ -87,12 +86,15 @@ const createTextEl = text => {
 }
 
 /* BOOK SETTINGS */
-const INITIAL_PHRASE = "Un jardín de Plástico"
-const INTERVAL_LIMIT = 500;
-const INTERVAL_TIMING = 150;
-const MIN_PHRASE_REPEAT = 15;
-const MAX_PHRASE_REPEAT = 25;
-const REVERSE = false 
+const INITIAL_PHRASE = "Un jardín de Papel"
+// const INTERVAL_LIMIT = 200;
+const INTERVAL_LIMIT = 1000;
+const REVERSE = true;
+const INTERVAL_TIMING = 300;
+// const INTERVAL_TIMING = 100;
+const MIN_PHRASE_REPEAT = 17;
+const MAX_PHRASE_REPEAT = 28;
+const MAZE_CHANCES = 2;
 const BLANK_CHARS = [
     " . ",
     ".",
@@ -110,17 +112,8 @@ const BLANK_CHARS = [
     "ï"
 ]
 
-function getRandomInt(min=0, max=2) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function pickArray(myArray) {
-    return myArray[Math.floor(Math.random()*myArray.length)]
-}
-const getRepeatedText = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
-    const randomLength = getRandomInt(min, max) 
-    return Array(randomLength).fill(text)
+const getRepeatedPhraseText = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
+    return getRepeatedText(text, min, max)
 } 
 const blankOutPhrase = (phrase, replacement) => {
     if (!replacement) {
@@ -142,6 +135,7 @@ window.addEventListener("load", () => {
     const _Grammar = tracery.createGrammar(buildTraceryGrammar());
 
     var _Counter = 0;
+    var _isMaze = false;
     var _State = getNewState(INITIAL_PHRASE)
 
   function getGrammarResult() {
@@ -149,10 +143,17 @@ window.addEventListener("load", () => {
   }
   function displayText(text) {
     const $p = createTextEl(text)
+    insertEl($p)
+  }
+  function displayMazeText(text) {
+    const $p = makeMazeText(text)
+    insertEl($p)
+  }
+  function insertEl($el) {
     if (REVERSE) {
-        _Container.prepend($p);
+        _Container.prepend($el);
     } else {
-        _Container.appendChild($p);
+        _Container.appendChild($el);
     }
   }
   function getNewState(newPhrase) {
@@ -160,14 +161,14 @@ window.addEventListener("load", () => {
     if (!newPhrase) {
         newPhrase = getGrammarResult()
     }
-    const repeatedPhrase = getRepeatedText(newPhrase)
+    const repeatedPhrase = getRepeatedPhraseText(newPhrase)
     const distortedPhrase = repeatedPhrase.map(piece => blankOutPhrase(piece))
-    const gardenPhrases = getRepeatedText(pickArray(BLANK_CHARS))
+    const gardenPhrases = getRepeatedPhraseText(pickArray(BLANK_CHARS))
     .map(piece => blankOutPhrase(piece))
     .join(" ")
 
     // garden text
-    newState = newState.concat(getRepeatedText(gardenPhrases))
+    newState = newState.concat(getRepeatedPhraseText(gardenPhrases))
     // distorted phrase text
     newState = newState.concat(distortedPhrase)
     // normal text
@@ -177,20 +178,32 @@ window.addEventListener("load", () => {
 
   var intervalId = setInterval(function(){
     var currentPhrase;
-     if(_Counter === INTERVAL_LIMIT){
-        clearInterval(intervalId);
-        return
-     }
-
+    if(_Counter === INTERVAL_LIMIT){
+       clearInterval(intervalId);
+       return
+    }
     if (!_State.length) {
-       _State = getNewState()
+        if (getRandomInt(0, MAZE_CHANCES) === 1) {
+            console.log("MAZE TIME")
+            _State = getNewMazeState()
+            _isMaze = true
+        } else {
+            _State = getNewState()
+            _isMaze = false
+        }
     }  
+
+    /* Add phrases */
     currentPhrase = _State.pop()
+    if (currentPhrase) {
+        if (_isMaze) {
+            displayMazeText(currentPhrase)
+            // displayText(currentPhrase)
+        } else {
+            displayText(currentPhrase)
+        }
+    }
 
-     if (currentPhrase) {
-         displayText(currentPhrase)
-     }
-
-     _Counter++;
+    _Counter++;
   }, INTERVAL_TIMING);
 });
