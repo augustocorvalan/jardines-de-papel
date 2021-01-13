@@ -88,7 +88,7 @@ const createTextEl = text => {
 /* BOOK SETTINGS */
 const INITIAL_PHRASE = "Un jardín de Papel"
 // const INTERVAL_LIMIT = 200;
-const INTERVAL_LIMIT = 1000;
+const INTERVAL_LIMIT = 10000;
 const REVERSE = true;
 const INTERVAL_TIMING = 300;
 // const INTERVAL_TIMING = 100;
