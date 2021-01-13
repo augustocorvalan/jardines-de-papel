@@ -12,7 +12,6 @@ body {
 }
 
 h1 {
-  font-style: italic;
   color: #373fff;
 }
 
@@ -35,6 +34,7 @@ header {
 
 .title span {
 	font-size: 6rem;
+	  font-weight: 300;
 }
 .title span:nth-child(2) {
 	text-transform: uppercase;
