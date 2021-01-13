@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- import minified jquery lib -->
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet"> 
+    <!-- import minified tracery lib -->
+    <script src="tracery-min.js"></script>
+    <!-- import the webpage's javascript files -->
+    <script src="utils.js" defer></script>
+    <script src="laberinto.js" defer></script>
+    <script src="main-jardin.js" defer></script>
+    
+  </head>  
+  <body>
+    <header>
+      <div class="title-container">
+        <p class="title"><span>Un</span> <span>libro</span> <span>de</span> <span>Jardines</span></p>
+      </div>
+
+      <div class="epigraph-container">
+        <p class="epigraph">
+          As the mathematician Hermann Weyl noted: "A thing is symmetrical if there is something that you can do to it so that after you have finished doing it, it looks the same as it did before"
+          <span class="attribution">--Tan Lin</span>
+        </p>
+      </div>
+
+      <div class="length-input-container">
+        Please kindly select length of your book for your experience
+          <br />
+         <input type="radio" id="1" name="length">
+          <label for="1">→→1 yr</label>
+         <input type="radio" id="2" name="length">
+          <label for="2">→→→→10,000 hrs (most popular)</label><br>
+         <input type="radio" id="3" name="length">
+          <label for="3">→1,00,000 days (advanced users only)</label><br>
+      </div>
+      </header>
+
+
+    <p style="text-align: center">
+        ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+        ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+        ↓↓↓
+      
+        ↓↓↓!
+    </p>
+    <div id="container">
+      
+    </div>
+    
+    
+    
+    <!-- include the Glitch button to show what the webpage is about and
+          to make it easier for folks to view source and remix -->
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>
