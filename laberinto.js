@@ -18,6 +18,7 @@ const makeMazeContainerEl = () => {
 const makeMazeText = (text) => {
 	const $p = document.createElement("p")
 	$p.className = "maze-phrase"
+	$p.style.width = `${getRandomInt(135 ,275)}px`
 	$p.innerHTML = text
 	return $p
 }

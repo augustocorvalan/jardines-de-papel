@@ -68,26 +68,14 @@ header {
     color: #6B90EB;
 }
 
-.maze-container {
-    width: 90vh;
-    background-color: #E3E3D6;
-	display: flex;
-    align-items: center;
-    margin: 5rem 0;
-    justify-content: center;
-    flex-wrap: wrap;
-    overflow: hidden;
-}
-
 .maze-phrase {
-	color: black;
+	color: #d23939;
 	text-transform: lowercase;
-	margin: 3rem;
-	width: 150px;
-	letter-spacing: 4px;
-	line-height: 4;
+	margin: 2rem;
+	/*width: 150px;*/
+	letter-spacing: 0px;
+	line-height: 1;
 	font-size: 1rem;
-    background-color: #E3E3D6;
     display: inline-block;
-    text-shadow: -24px -14px lightcoral;
+    text-align: justify;
 }

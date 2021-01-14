@@ -1,4 +1,28 @@
 /* globals tracery */
+// const INTERVAL_LIMIT = 200;
+const INTERVAL_LIMIT = 2000;
+const REVERSE = true;
+const INTERVAL_TIMING = 750;
+// const INTERVAL_TIMING = 1;
+const MIN_PHRASE_REPEAT = 17;
+const MAX_PHRASE_REPEAT = 28;
+const MAZE_CHANCES = 2;
+const BLANK_CHARS = [
+    " . ",
+    ".",
+    " ¨ ",
+    " ° ",
+    "◦",
+    "/",
+    "/ ",
+    " I ",
+    "¦",
+    "",
+    " ",
+    ":",
+    " Ï ",
+    "ï"
+]
 
 
 function buildTraceryGrammar() {
@@ -87,30 +111,6 @@ const createTextEl = text => {
 
 /* BOOK SETTINGS */
 const INITIAL_PHRASE = "Un jardín de Papel"
-// const INTERVAL_LIMIT = 200;
-const INTERVAL_LIMIT = 10000;
-const REVERSE = true;
-const INTERVAL_TIMING = 300;
-// const INTERVAL_TIMING = 100;
-const MIN_PHRASE_REPEAT = 17;
-const MAX_PHRASE_REPEAT = 28;
-const MAZE_CHANCES = 2;
-const BLANK_CHARS = [
-    " . ",
-    ".",
-    " ¨ ",
-    " ° ",
-    "◦",
-    "/",
-    "/ ",
-    " I ",
-    "¦",
-    "",
-    " ",
-    ":",
-    " Ï ",
-    "ï"
-]
 
 const getRepeatedPhraseText = (text, min=MIN_PHRASE_REPEAT, max=MAX_PHRASE_REPEAT) => {
     return getRepeatedText(text, min, max)
