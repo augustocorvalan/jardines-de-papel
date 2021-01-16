@@ -1,5 +1,5 @@
-const MAZE_REPEAT_MIN = 16 
-const MAZE_REPEAT_MAX = 26
+const MAZE_REPEAT_MIN = 10 
+const MAZE_REPEAT_MAX = 20
 const MAZE_PHRASES = [
 	"y todos los jardines son, a su manera, laberintos tambien",
 	"y todos los jardines son, por supuesto, laberintos tambien"

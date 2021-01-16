@@ -1,11 +1,11 @@
 /* globals tracery */
 // const INTERVAL_LIMIT = 200;
-const INTERVAL_LIMIT = 2000;
+const INTERVAL_LIMIT = 9000;
 const REVERSE = true;
-const INTERVAL_TIMING = 750;
+const INTERVAL_TIMING = 800;
 // const INTERVAL_TIMING = 1;
-const MIN_PHRASE_REPEAT = 17;
-const MAX_PHRASE_REPEAT = 28;
+const MIN_PHRASE_REPEAT = 12;
+const MAX_PHRASE_REPEAT = 22;
 const MAZE_CHANCES = 2;
 const BLANK_CHARS = [
     " . ",
